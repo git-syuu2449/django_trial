@@ -126,46 +126,38 @@ STATIC_URL = '/static/'
 INTERNAL_IPS = ['127.0.0.1']
 
 
-#for logging
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-
-    'formatters':{
-
-        'standard':{
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
-
+    # ログ出力フォーマットの設定
+    'formatters': {
+        'production': {
+            'format': '%(asctime)s [%(levelname)s] %(process)d %(thread)d '
+                    '%(pathname)s:%(lineno)d %(message)s'
         },
     },
+    # ハンドラの設定
     'handlers': {
         'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': 'debug.log',
-            'maxBytes': 50000,
-            'backupCount':2,
-            'formatter':'standard',
-        },
-        'console':{
-
-            'level':'INFO',
-            'class':'logging.StreamHandler',
-            'formatter':'standard'
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'app.log',
+            'formatter': 'production',
         },
     },
+    # ロガーの設定
     'loggers': {
+        # 自分で追加したアプリケーション全般のログを拾うロガー
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Django自身が出力するログ全般を拾うロガー
         'django': {
             'handlers': ['file'],
             'level': 'DEBUG',
-            'propagate': True,
+            'propagate': False,
         },
-        'main':{
-            'handlers':['file','console'],
-            'level':'DEBUG',
-            'propagate':True,
-
-        }
     },
 }

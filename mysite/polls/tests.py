@@ -18,6 +18,10 @@ class QuestionModelTests(TestCase):
         """
         time = timezone.now() + datetime.timedelta(days=30)
         future_question = Question(pub_date=time)
+        
+        logger.debug('***future_question***')
+        logger.debug(future_question.pub_date)
+        
         self.assertIs(future_question.was_published_recently(), False)
 
     def test_was_published_recently_with_old_question(self):
@@ -29,7 +33,7 @@ class QuestionModelTests(TestCase):
         old_question = Question(pub_date=time)
         
         logger.debug('***old_question***')
-        logger.debug(old_question)
+        logger.debug(old_question.pub_date)
         
         self.assertIs(old_question.was_published_recently(), False)
 
@@ -40,4 +44,8 @@ class QuestionModelTests(TestCase):
         """
         time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
+        
+        logger.debug('***recent_question***')
+        logger.debug(recent_question.pub_date)
+        
         self.assertIs(recent_question.was_published_recently(), True)
