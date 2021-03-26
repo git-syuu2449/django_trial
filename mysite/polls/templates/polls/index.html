@@ -1,10 +1,14 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}">
     <title>index</title>
 </head>
 <body>
+    "{% static 'polls/css/style.css' %}"
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
