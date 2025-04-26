@@ -49,8 +49,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME':'traial',
-        'USER':'root',
-        'PASSWORD':'Root1234!',
+        'USER':'db_user',
+        'PASSWORD':'Password1234!',
         'HOST':'localhost',
         'PORT':'',
     }
@@ -58,6 +58,16 @@ DATABASES = {
 
 
 INTERNAL_IPS = ['127.0.0.1']
+
+
+# mail
+# NOTE 実際に送信する場合 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'apptest'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_TLS = False
 
 
 LOGGING = {
